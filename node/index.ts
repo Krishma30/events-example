@@ -7,6 +7,7 @@ import type {
 import { Service } from '@vtex/api'
 
 import { example } from './events/example'
+import { updateLiveUsers } from './events/liveUsersUpdate'
 import { createSendEvent } from './routes/notify'
 import { getCacheContext, setCacheContext } from './utils/cachedContext'
 
@@ -41,6 +42,10 @@ sendEventWithTimer()
 export default new Service<IOClients, State, ParamsContext>({
   clients: {
     options: {
+      default: {
+        retries: 2,
+        timeout: 10000,
+      },
       events: {
         exponentialTimeoutCoefficient: 2,
         exponentialBackoffCoefficient: 2,
@@ -53,6 +58,7 @@ export default new Service<IOClients, State, ParamsContext>({
   },
   events: {
     example,
+    liveUsersUpdate: updateLiveUsers,
   },
   routes: {
     hcheck: (ctx: any) => {

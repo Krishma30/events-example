@@ -9,6 +9,10 @@
     "example": {
       "sender": "vtex.events-example",
       "keys": ["send-event"]
+    },
+    "liveUsersUpdate": {
+      "sender": "vtex.events-example",
+      "keys": ["send-event"]
     }
   },
   "routes": {
